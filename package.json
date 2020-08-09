@@ -1,0 +1,20 @@
+{
+  "name": "jsdsa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@types/jest": "^26.0.9",
+    "jest": "^26.2.2",
+    "babel-jest": "^26.2.2"
+  }
+}
