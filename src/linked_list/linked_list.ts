@@ -109,14 +109,14 @@ class LinkedList {
 }
 export default LinkedList;
 
-let list = new LinkedList();
-list.append(15);
-list.append(10);
-list.append(5);
-list.append(0);
+// let list = new LinkedList();
+// list.append(15);
+// list.append(10);
+// list.append(5);
+// list.append(0);
 
-// list.insert(2, 8);
-console.log(list.toString());
-console.log(list.indexOf(5));
+// // list.insert(2, 8);
+// console.log(list.toString());
+// console.log(list.indexOf(5));
 
 // console.log(list, list.length);
