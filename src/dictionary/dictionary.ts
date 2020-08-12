@@ -1,6 +1,6 @@
-class Dictionary{
+class Dictionary {
   public items;
-  constructor(items?){
+  constructor(items?) {
     this.items = items || {};
   }
   set(key, value: any): void {
@@ -25,7 +25,7 @@ class Dictionary{
   size(): number {
     return this.keys().length;
   }
-  keys(){
+  keys() {
     return Object.keys(this.items);
   }
   values() {
