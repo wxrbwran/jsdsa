@@ -1,5 +1,5 @@
 class Queue {
-  protected items;
+  private items;
   constructor(arr?) {
     this.items = arr || [];
   }

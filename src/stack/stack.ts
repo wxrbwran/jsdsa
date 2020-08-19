@@ -1,7 +1,7 @@
 class Stack {
-  protected items;
-  constructor(items?) {
-    this.items = items || new Array();
+  private items;
+  constructor() {
+    this.items = [];
   }
   push(item) {
     this.items.push(item);
@@ -16,7 +16,7 @@ class Stack {
     return this.items.length === 0;
   }
   clear(): void {
-    this.items.length = 0;
+    this.items = [];
   }
   size(): number {
     return this.items.length;

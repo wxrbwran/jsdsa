@@ -9,9 +9,6 @@ export class NodeElement {
 class LinkedList {
   private length = 0;
   private head;
-  // constructor() {
-  //   this.node = null;
-  // }
   append(element) {
     let node = new NodeElement(element);
     let current;

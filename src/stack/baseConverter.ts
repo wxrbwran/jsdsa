@@ -1,5 +1,5 @@
 import Stack from "./stack";
-// const Stack = require("./stack");
+
 export const baseCobverter = (decNum, base) => {
   var remStack = new Stack(),
     rem,
