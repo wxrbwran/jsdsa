@@ -9,13 +9,11 @@ const Colors = {
 class Graph {
   private vertices;
   private adjList;
-  private time;
   public isDirected;
   constructor(isDirected = false) {
     this.isDirected = isDirected;
     this.vertices = [];
     this.adjList = new Dictionary();
-    this.time = 0;
   }
 
   addVertex(v) {
@@ -140,11 +138,68 @@ const depthFirstSearchVisit = (u, colors, adjList, callback) => {
   const neighbors = adjList.get(u);
   for (let i = 0; i < neighbors.length; i++) {
     const w = neighbors[i];
-    if (callback[w] === Colors.WHITE) {
+    if (colors[w] === Colors.WHITE) {
       depthFirstSearchVisit(w, colors, adjList, callback);
     }
   }
   colors[u] = Colors.BLACK;
+};
+
+export const DFS = (graph) => {
+  const vertices = graph.getVertics();
+  const adjList = graph.getAdjList();
+  const color = graph.initializeColor(vertices);
+  const discovery = {};
+  const finished = {};
+  const predecessors = {};
+  const time = { count: 0 };
+  for (let i = 0; i < vertices.length; i++) {
+    finished[vertices[i]] = 0;
+    discovery[vertices[i]] = 0;
+    predecessors[vertices[i]] = null;
+  }
+  for (let i = 0; i < vertices.length; i++) {
+    if (color[vertices[i]] === Colors.WHITE) {
+      DFSVisit(
+        vertices[i],
+        color,
+        discovery,
+        finished,
+        predecessors,
+        time,
+        adjList
+      );
+    }
+  }
+  return {
+    discovery: discovery,
+    finished: finished,
+    predecessors: predecessors,
+  };
+};
+const DFSVisit = (
+  u,
+  color,
+  discovery,
+  finished,
+  predecessors,
+  time,
+  adjList
+) => {
+  // console.log('discovered ' + u);
+  color[u] = Colors.GREY;
+  discovery[u] = ++time.count;
+  const neighbors = adjList.get(u);
+  for (let i = 0; i < neighbors.length; i++) {
+    const w = neighbors[i];
+    if (color[w] === Colors.WHITE) {
+      predecessors[w] = u;
+      DFSVisit(w, color, discovery, finished, predecessors, time, adjList);
+    }
+  }
+  color[u] = Colors.BLACK;
+  finished[u] = ++time.count;
+  // console.log('explored ' + u);
 };
 
 export default Graph;

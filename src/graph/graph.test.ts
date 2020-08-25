@@ -1,4 +1,4 @@
-import Graph, { bfs, BFS, dfs } from "./graph";
+import Graph, { bfs, BFS, dfs, DFS } from "./graph";
 
 let graph;
 
@@ -37,11 +37,11 @@ describe("Graph", () => {
   //   const res = BFS(graph, "A");
   //   console.log(res);
   // });
-  it("dfs", () => {
-    dfs(graph, printNode);
-  });
-  // it("DFS", () => {
-  //   const res = graph.DFS();
-  //   console.log(res);
+  // it("dfs", () => {
+  //   dfs(graph, printNode);
   // });
+  it("DFS", () => {
+    const res = DFS(graph);
+    console.log(res);
+  });
 });
