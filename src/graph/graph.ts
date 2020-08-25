@@ -88,44 +88,63 @@ export const bfs = (graph, startVertex, callback) => {
   }
 };
 
-export const BFS = (graph, startVertex, callback) => {
+export const BFS = (graph, startVertex) => {
   const vertices = graph.getVertics();
   const adjList = graph.getAdjList();
-  const colors = graph.initializeColor(vertices);
+  const color = graph.initializeColor(vertices);
   const queue = new Queue();
-
   const distances = {};
   const predecessors = {};
-
   queue.enqueue(startVertex);
-
   for (let i = 0; i < vertices.length; i++) {
     distances[vertices[i]] = 0;
     predecessors[vertices[i]] = null;
   }
   while (!queue.isEmpty()) {
     const u = queue.dequeue();
-    colors[u] = Colors.GREY;
     const neighbors = adjList.get(u);
+    color[u] = Colors.GREY;
     for (let i = 0; i < neighbors.length; i++) {
       const w = neighbors[i];
-      if (colors[w] === Colors.WHITE) {
-        colors[w] = Colors.GREY;
+      if (color[w] === Colors.WHITE) {
+        color[w] = Colors.GREY;
         distances[w] = distances[u] + 1;
         predecessors[w] = u;
-        console.log(w);
         queue.enqueue(w);
       }
     }
-    colors[u] = Colors.BLACK;
-    if (callback) {
-      callback(u);
-    }
-    return {
-      distances,
-      predecessors,
-    };
+    color[u] = Colors.BLACK;
   }
+  return {
+    distances,
+    predecessors,
+  };
+};
+
+export const dfs = (graph, callback) => {
+  const vertices = graph.getVertics();
+  const adjList = graph.getAdjList();
+  const colors = graph.initializeColor(vertices);
+  for (let i = 0; i < vertices.length; i++) {
+    if (colors[vertices[i]] === Colors.WHITE) {
+      depthFirstSearchVisit(vertices[i], colors, adjList, callback);
+    }
+  }
+};
+
+const depthFirstSearchVisit = (u, colors, adjList, callback) => {
+  colors[u] = Colors.GREY;
+  if (callback) {
+    callback(u);
+  }
+  const neighbors = adjList.get(u);
+  for (let i = 0; i < neighbors.length; i++) {
+    const w = neighbors[i];
+    if (callback[w] === Colors.WHITE) {
+      depthFirstSearchVisit(w, colors, adjList, callback);
+    }
+  }
+  colors[u] = Colors.BLACK;
 };
 
 export default Graph;

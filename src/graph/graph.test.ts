@@ -1,4 +1,4 @@
-import Graph, { bfs, BFS } from "./graph";
+import Graph, { bfs, BFS, dfs } from "./graph";
 
 let graph;
 
@@ -9,12 +9,10 @@ beforeAll(() => {
     graph.addVertex(myVertices[i]);
   }
   graph.addEdge("A", "B");
-
   graph.addEdge("A", "C");
   graph.addEdge("A", "D");
   graph.addEdge("C", "D");
   graph.addEdge("C", "G");
-
   graph.addEdge("D", "G");
   graph.addEdge("D", "H");
   graph.addEdge("B", "E");
@@ -35,13 +33,13 @@ describe("Graph", () => {
   // it("bfs", () => {
   //   bfs(graph, "A", printNode);
   // });
-  it("BFS", () => {
-    const res = BFS(graph, "A");
-    console.log(res);
-  });
-  // it("dfs", () => {
-  //   graph.dfs(printNode);
+  // it("BFS", () => {
+  //   const res = BFS(graph, "A");
+  //   console.log(res);
   // });
+  it("dfs", () => {
+    dfs(graph, printNode);
+  });
   // it("DFS", () => {
   //   const res = graph.DFS();
   //   console.log(res);
