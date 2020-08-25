@@ -2,29 +2,45 @@ import Dictionary from "../dictionary/dictionary";
 import Queue from "../queue/queue";
 // import Stack from "../stack/stack";
 class Graph {
-  private vertics;
+  private vertices;
   private adjList;
   private time;
-  constructor() {
-    this.vertics = [];
+  public isDirected;
+  constructor(isDirected = false) {
+    this.isDirected = isDirected;
+    this.vertices = [];
     this.adjList = new Dictionary();
     this.time = 0;
   }
-  getVertics() {
-    return this.vertics;
-  }
+
   addVertex(v) {
-    this.vertics.push(v);
-    this.adjList.set(v, []);
+    if (!this.vertices.includes(v)) {
+      this.vertices.push(v);
+      this.adjList.set(v, []);
+    }
   }
   addEdge(v, w) {
+    if (!this.adjList.get(v)) {
+      this.addVertex(v);
+    }
+    if (!this.adjList.get(w)) {
+      this.addVertex(w);
+    }
     this.adjList.get(v).push(w);
-    this.adjList.get(w).push(v);
+    if (!this.isDirected) {
+      this.adjList.get(w).push(v);
+    }
+  }
+  getVertics() {
+    return this.vertices;
+  }
+  getAdjList() {
+    return this.adjList;
   }
   initializeColor() {
     let color = [];
-    for (let i = 0; i < this.vertics.length; i++) {
-      color[this.vertics[i]] = "white"; // 1
+    for (let i = 0; i < this.vertices.length; i++) {
+      color[this.vertices[i]] = "white"; // 1
     }
     return color;
   }
@@ -59,10 +75,10 @@ class Graph {
     let distances = []; //1 距离
     let pred = []; //2 前溯点
     queue.enqueue(v);
-    for (var i = 0; i < this.vertics.length; i++) {
+    for (var i = 0; i < this.vertices.length; i++) {
       //{3}
-      distances[this.vertics[i]] = 0; //4
-      pred[this.vertics[i]] = null; //5
+      distances[this.vertices[i]] = 0; //4
+      pred[this.vertices[i]] = null; //5
     }
 
     while (!queue.isEmpty()) {
@@ -88,9 +104,9 @@ class Graph {
   }
   dfs(callback) {
     let color = this.initializeColor();
-    for (let i = 0; i < this.vertics.length; i++) {
-      if (color[this.vertics[i]] === "white") {
-        this.dfsVisit(this.vertics[i], color, callback);
+    for (let i = 0; i < this.vertices.length; i++) {
+      if (color[this.vertices[i]] === "white") {
+        this.dfsVisit(this.vertices[i], color, callback);
       }
     }
   }
@@ -113,15 +129,15 @@ class Graph {
       d = [],
       p = [],
       f = [];
-    for (var i = 0; i < this.vertics.length; i++) {
+    for (var i = 0; i < this.vertices.length; i++) {
       //{3}
-      const vertex = this.vertics[i];
+      const vertex = this.vertices[i];
       f[vertex] = 0;
       d[vertex] = 0;
       p[vertex] = null;
     }
-    for (i = 0; i < this.vertics.length; i++) {
-      const vertex = this.vertics[i];
+    for (i = 0; i < this.vertices.length; i++) {
+      const vertex = this.vertices[i];
       if (color[vertex] === "white") {
         this.DFSVisit(vertex, color, d, f, p);
       }
@@ -147,9 +163,9 @@ class Graph {
   }
   toString() {
     let s = "";
-    for (let i = 0; i < this.vertics.length; i++) {
-      s += `${this.vertics[i]}  -> `;
-      const list = this.adjList.get(this.vertics[i]);
+    for (let i = 0; i < this.vertices.length; i++) {
+      s += `${this.vertices[i]}  -> `;
+      const list = this.adjList.get(this.vertices[i]);
       for (let j = 0; j < list.length; j++) {
         s += `${list[j]} `;
       }
