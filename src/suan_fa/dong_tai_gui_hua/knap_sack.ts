@@ -18,9 +18,9 @@ function findValues(n, capacity, kS) {
 export function knapSack(
   capacity, // 重量约束
   weights, // 物品重量列表
-  values, // 物品价值列表
-  n // 价值列表长度
+  values // 物品价值列表
 ) {
+  const n = values.length;
   const kS = [];
   for (let i = 0; i <= n; i++) {
     //1
@@ -32,6 +32,7 @@ export function knapSack(
         // 2
         kS[i][w] = 0;
       } else if (weights[i - 1] <= w) {
+        //3
         const a = values[i - 1] + kS[i - 1][w - weights[i - 1]];
         const b = kS[i - 1][w];
         kS[i][w] = a > b ? a : b; // max(a,b)
@@ -42,6 +43,7 @@ export function knapSack(
     }
     // console.log(kS[i].join());
   }
+  console.log(kS);
   // extra algorithm to find the items that are part of the solution
   findValues(n, capacity, kS);
   return kS[n][capacity];
