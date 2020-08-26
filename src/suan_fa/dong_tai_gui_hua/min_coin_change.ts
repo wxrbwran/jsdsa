@@ -1,15 +1,15 @@
-export function minCoinChange(coins: number[], val: number) {
+export default function minCoinChange(coins: number[], val: number) {
   const cache: Array<Array<number>> = []; //1
 
-  const makeChange = function (amount: number) {
+  const makeChange = function (value: number) {
     //2
-    if (!amount) {
+    if (!value) {
       //3
       return [];
     }
-    if (cache[amount]) {
+    if (cache[value]) {
       //4
-      return cache[amount];
+      return cache[value];
     }
     let min: number[] = [],
       newMin,
@@ -17,7 +17,7 @@ export function minCoinChange(coins: number[], val: number) {
     for (let i = 0; i < coins.length; i++) {
       //5
       const coin = coins[i];
-      newAmount = amount - coin; //6
+      newAmount = value - coin; //6
       if (newAmount >= 0) {
         newMin = makeChange(newAmount); //7
       }
@@ -27,10 +27,10 @@ export function minCoinChange(coins: number[], val: number) {
         (newMin.length || !newAmount) // 10
       ) {
         min = [coin].concat(newMin); //11
-        console.log("new Min " + min + " for " + amount);
+        console.log("new Min " + min + " for " + value);
       }
     }
-    return (cache[amount] = min);
+    return (cache[value] = min);
   };
 
   return makeChange(val);
