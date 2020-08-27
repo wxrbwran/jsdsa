@@ -17,9 +17,12 @@ const countingSortForRadix = (array, radixBase, significantDigit, minValue) => {
     );
     buckets[bucketsIndex]++;
   }
+  console.log(1, buckets);
   for (let i = 1; i < radixBase; i++) {
     buckets[i] += buckets[i - 1];
   }
+  console.log(2, buckets);
+
   for (let i = array.length - 1; i >= 0; i--) {
     bucketsIndex = getBucketIndex(
       array[i],
@@ -29,12 +32,11 @@ const countingSortForRadix = (array, radixBase, significantDigit, minValue) => {
     );
     aux[--buckets[bucketsIndex]] = array[i];
   }
-  for (let i = 0; i < array.length; i++) {
-    array[i] = aux[i];
-  }
-  return array;
+  console.log(3, aux);
+
+  return aux;
 };
-export function radixSort(array, radixBase = 10) {
+export default function radixSort(array, radixBase = 10) {
   if (array.length < 2) {
     return array;
   }
